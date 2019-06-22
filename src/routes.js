@@ -49,6 +49,14 @@ const CategoryForm = React.lazy(() =>
   import("./components/pages/category/CategoryForm")
 );
 
+const AttractionList = React.lazy(() =>
+  import("./components/pages/attraction/AttractionList.js")
+);
+
+const AttractionForm = React.lazy(() =>
+  import("./components/pages/attraction/AttractionForm.js")
+);
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -131,6 +139,25 @@ const routes = [
     exact: true,
     name: "Edit Kategori",
     component: CategoryForm
+  },
+
+  {
+    path: "/attraction",
+    exact: true,
+    name: "Tempat Wista",
+    component: AttractionList
+  },
+  {
+    path: "/attraction/add",
+    exact: true,
+    name: "Tambah Tempat Wisata",
+    component: AttractionForm
+  },
+  {
+    path: "/attraction/edit/:id",
+    exact: true,
+    name: "Edit Tempat Wisata",
+    component: AttractionForm
   }
 ];
 

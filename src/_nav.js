@@ -15,6 +15,11 @@ export default {
       icon: "icon-drop"
     },
     {
+      name: "Tempat Wisata",
+      url: "/attraction",
+      icon: "icon-drop"
+    },
+    {
       name: "Typography",
       url: "/theme/typography",
       icon: "icon-pencil"

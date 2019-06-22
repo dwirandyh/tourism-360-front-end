@@ -4,7 +4,8 @@ import {
   CATEGORY_ERROR,
   DELETE_CATEGORY,
   GET_CATEGORY,
-  UPDATE_CATEGORY
+  UPDATE_CATEGORY,
+  GET_ALL_CATEGORIES
 } from "./types";
 import { API_URL } from "../config";
 
@@ -14,6 +15,22 @@ export const getCategories = (page = 1) => async dispatch => {
 
     dispatch({
       type: GET_CATEGORIES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: CATEGORY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+export const getAllCategories = () => async dispatch => {
+  try {
+    const res = await axios.get(`${API_URL}/api/category/all`);
+
+    dispatch({
+      type: GET_ALL_CATEGORIES,
       payload: res.data
     });
   } catch (err) {
@@ -68,12 +85,21 @@ export const addCategory = (formData, history) => async dispatch => {
 export const updateCategory = (id, formData, history) => async dispatch => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
+      "content-type": "multipart/form-data"
     }
   };
 
   try {
-    const res = axios.put(`${API_URL}/api/category/${id}`, formData, config);
+    let axiosFormData = new FormData();
+    axiosFormData.append("thumbnail", formData.thumbnail);
+    axiosFormData.append("name", formData.name);
+    axiosFormData.append("description", formData.description);
+
+    const res = await axios.put(
+      `${API_URL}/api/category/${id}`,
+      axiosFormData,
+      config
+    );
     dispatch({
       type: UPDATE_CATEGORY,
       payload: res.data
@@ -118,7 +144,16 @@ export const deleteCategory = id => async dispatch => {
       type: DELETE_CATEGORY,
       payload: id
     });
+
+    dispatch(getCategories());
   } catch (err) {
     alert(err);
   }
+};
+
+export const cleanCategoryState = () => async dispatch => {
+  dispatch({
+    type: GET_CATEGORY,
+    payload: {}
+  });
 };

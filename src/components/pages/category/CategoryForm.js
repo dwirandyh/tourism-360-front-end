@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { API_URL } from "../../../config";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   addCategory,
   getCategory,
-  updateCategory
+  updateCategory,
+  cleanCategoryState
 } from "../../../actions/category";
 import {
   Button,
@@ -26,6 +28,7 @@ const CategoryForm = ({
   addCategory,
   getCategory,
   updateCategory,
+  cleanCategoryState,
   category: { category, loading },
   history
 }) => {
@@ -41,13 +44,20 @@ const CategoryForm = ({
   useEffect(() => {
     if (id != null) {
       getCategory(id);
+    } else {
+      cleanCategoryState();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (id != null) {
       setFormData({
         name: loading || !category.name ? "" : category.name,
         description:
           loading || !category.description ? "" : category.description
       });
     }
-  }, []);
+  }, [category]);
 
   const { name, description } = formData;
 
@@ -73,6 +83,16 @@ const CategoryForm = ({
       addCategory(formData, history);
     }
   };
+
+  const thumbnailPreview = !loading && category !== null && (
+    <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+      <img
+        alt="thumbnail preview"
+        src={`${API_URL}/uploads/${category.thumbnail}`}
+        style={{ maxHeight: "100px" }}
+      />
+    </div>
+  );
 
   return (
     <div className="animated fadeIn">
@@ -103,6 +123,7 @@ const CategoryForm = ({
                   <Col xs="12">
                     <FormGroup>
                       <Label htmlFor="name">Thumbnail</Label>
+                      {category.thumbnail !== "" && thumbnailPreview}
                       <Input
                         type="file"
                         required
@@ -161,6 +182,7 @@ export default connect(
   {
     addCategory,
     getCategory,
-    updateCategory
+    updateCategory,
+    cleanCategoryState
   }
 )(withRouter(CategoryForm));

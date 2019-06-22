@@ -1,9 +1,9 @@
 import {
+  GET_ALL_CATEGORIES,
   GET_CATEGORY,
   GET_CATEGORIES,
   ADD_CATEGORY,
-  DELETE_CATEGORY,
-  UPDATE_CATEGORY
+  DELETE_CATEGORY
 } from "../actions/types";
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
     },
     data: []
   },
+  allCategories: [],
   category: {},
   loading: true,
   error: {}
@@ -24,13 +25,18 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        allCategories: payload,
+        loading: false
+      };
     case GET_CATEGORIES:
       return {
         ...state,
         categories: payload,
         loading: false
       };
-    case UPDATE_CATEGORY:
     case GET_CATEGORY:
       return {
         ...state,
