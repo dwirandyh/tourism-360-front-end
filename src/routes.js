@@ -57,6 +57,10 @@ const AttractionForm = React.lazy(() =>
   import("./components/pages/attraction/AttractionForm.js")
 );
 
+const AttractionGallery = React.lazy(() =>
+  import("./components/pages/attraction_gallery/AttractionGallery")
+);
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -158,6 +162,12 @@ const routes = [
     exact: true,
     name: "Edit Tempat Wisata",
     component: AttractionForm
+  },
+  {
+    path: "/attraction/gallery/:id",
+    exact: true,
+    name: "Galeri Foto Wisata",
+    component: AttractionGallery
   }
 ];
 

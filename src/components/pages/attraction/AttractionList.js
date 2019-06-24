@@ -54,6 +54,13 @@ const AttractionList = ({
           <td>{attraction.address}</td>
           <td>{attraction.shortDescription}</td>
           <td>
+            <Link to={`/attraction/gallery/${attraction.id}`}>
+              <Button color="primary" size="sm">
+                <i className="fa fa-photo" />
+                &nbsp;Galleri Foto
+              </Button>
+            </Link>
+            &nbsp;
             <Link to={`/attraction/edit/${attraction.id}`}>
               <Button color="success" size="sm">
                 <i className="fa fa-edit" />
