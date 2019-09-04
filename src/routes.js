@@ -24,7 +24,7 @@ const ButtonDropdowns = React.lazy(() =>
 const ButtonGroups = React.lazy(() => import("./views/Buttons/ButtonGroups"));
 const Buttons = React.lazy(() => import("./views/Buttons/Buttons"));
 const Charts = React.lazy(() => import("./views/Charts"));
-const Dashboard = React.lazy(() => import("./views/Dashboard"));
+// const Dashboard = React.lazy(() => import("./views/Dashboard"));
 const CoreUIIcons = React.lazy(() => import("./views/Icons/CoreUIIcons"));
 const Flags = React.lazy(() => import("./views/Icons/Flags"));
 const FontAwesome = React.lazy(() => import("./views/Icons/FontAwesome"));
@@ -41,6 +41,8 @@ const Users = React.lazy(() => import("./views/Users/Users"));
 const User = React.lazy(() => import("./views/Users/User"));
 
 // CUSTOM
+const Dashboard = React.lazy(() => import("./components/pages/Dashboard"));
+
 const CategoryList = React.lazy(() =>
   import("./components/pages/category/CategoryList")
 );
@@ -125,7 +127,12 @@ const routes = [
   { path: "/charts", name: "Charts", component: Charts },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
-
+  {
+    path: "/dashboard",
+    exact: true,
+    name: "Dashboard",
+    component: Dashboard
+  },
   {
     path: "/category",
     exact: true,

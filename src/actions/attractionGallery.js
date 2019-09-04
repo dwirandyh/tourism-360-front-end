@@ -30,12 +30,17 @@ export const addGallery = (formData, attractionId) => async dispatch => {
     console.log(formData);
     let axiosFormData = new FormData();
     axiosFormData.append("title", formData.title);
+    axiosFormData.append("latitude", formData.latitude);
+    axiosFormData.append("longitude", formData.longitude);
     axiosFormData.append("touristAttractionId", attractionId);
     axiosFormData.append("thumbnail", formData.thumbnail);
+    axiosFormData.append("directionFile", formData.directionFile);
+    axiosFormData.append("overviewFile", formData.overviewFile);
 
     await axios.post(`${API_URL}/api/tourist-gallery`, axiosFormData, config);
 
     dispatch(getGalleries(attractionId));
+    //window.location.reload();
   } catch (err) {
     dispatch({
       type: GALLERY_ERROR,
@@ -60,6 +65,7 @@ export const deleteGallery = id => async dispatch => {
     });
 
     dispatch(getGalleries());
+    window.location.reload();
   } catch (err) {
     alert(err);
   }

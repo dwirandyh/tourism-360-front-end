@@ -26,10 +26,14 @@ const AttractionGallery = ({ match, addGallery }) => {
 
   const id = match.params.id;
 
-  const { title } = FormData;
+  const { title, latitude, longitude } = FormData;
 
   const onChange = e => {
-    if (e.target.name === "thumbnail") {
+    if (
+      e.target.name === "thumbnail" ||
+      e.target.name === "directionFile" ||
+      e.target.name === "overviewFile"
+    ) {
       setFormData({
         ...formData,
         [e.target.name]: e.target.files[0]
@@ -71,6 +75,32 @@ const AttractionGallery = ({ match, addGallery }) => {
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
+                      <Label htmlFor="file-input">Latitude</Label>
+                    </Col>
+                    <Col md="6">
+                      <Input
+                        type="text"
+                        name="latitude"
+                        onChange={e => onChange(e)}
+                        value={latitude}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="file-input">Longitude</Label>
+                    </Col>
+                    <Col md="6">
+                      <Input
+                        type="text"
+                        name="longitude"
+                        onChange={e => onChange(e)}
+                        value={longitude}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
                       <Label htmlFor="file-input">
                         Pilih file foto pariwisata 360
                       </Label>
@@ -80,6 +110,34 @@ const AttractionGallery = ({ match, addGallery }) => {
                         type="file"
                         id="file-input"
                         name="thumbnail"
+                        onChange={e => onChange(e)}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="file-input">
+                        File Audio Menuju Lokasi
+                      </Label>
+                    </Col>
+                    <Col md="3">
+                      <Input
+                        type="file"
+                        id="file-input"
+                        name="directionFile"
+                        onChange={e => onChange(e)}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="file-input">File Audio Overview</Label>
+                    </Col>
+                    <Col md="3">
+                      <Input
+                        type="file"
+                        id="file-input"
+                        name="overviewFile"
                         onChange={e => onChange(e)}
                       />
                     </Col>
